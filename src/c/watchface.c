@@ -87,7 +87,7 @@ static void dial_update_proc(Layer *layer, GContext *ctx) {
     // if number is divisible by 5, make large mark
     if(i%5==0) {
       graphics_context_set_stroke_width(ctx, 4);
-      tick_length_start = tick_length_end-8;
+      tick_length_start = tick_length_end-9;
     } else {
       graphics_context_set_stroke_width(ctx, 1);
       tick_length_start = tick_length_end-4;
@@ -167,10 +167,10 @@ static void ticks_update_proc(Layer *layer, GContext *ctx) {
   time_t now = time(NULL);
   struct tm *t = localtime(&now);
   
-  int hand_point_end = (bounds.size.w/2) + (buf/2);
-  int hand_point_start = hand_point_end - 67;
+  int hand_point_end = ((bounds.size.h)/2)-10;
+  int hand_point_start = hand_point_end - 60;
   
-  int filler_point_end = 35;
+  int filler_point_end = 40;
   int filler_point_start = filler_point_end-15;
   
   float minute_angle = TRIG_MAX_ANGLE * t->tm_min / 60;
@@ -191,8 +191,8 @@ static void ticks_update_proc(Layer *layer, GContext *ctx) {
   };
   
   GPoint hour_hand_end = {
-    .x = (int)(sin_lookup(hour_angle) * (int)(hand_point_end-30) / TRIG_MAX_RATIO) + center.x,
-    .y = (int)(-cos_lookup(hour_angle) * (int)(hand_point_end-30) / TRIG_MAX_RATIO) + center.y,
+    .x = (int)(sin_lookup(hour_angle) * (int)(hand_point_end-25) / TRIG_MAX_RATIO) + center.x,
+    .y = (int)(-cos_lookup(hour_angle) * (int)(hand_point_end-25) / TRIG_MAX_RATIO) + center.y,
   };   
   
   GPoint filler_start = {
@@ -207,18 +207,34 @@ static void ticks_update_proc(Layer *layer, GContext *ctx) {
   
   // set colors
   graphics_context_set_antialiased(ctx, true);
-  graphics_context_set_fill_color(ctx, BACKGROUND_COLOR);
+   
+  // draw wide part of minute hand in background color for shadow
+  graphics_context_set_stroke_color(ctx, BACKGROUND_COLOR);  
+  graphics_context_set_stroke_width(ctx, 8);  
+  graphics_draw_line(ctx, minute_hand_start, minute_hand_end);  
+  
+  // draw minute line
   graphics_context_set_stroke_color(ctx, FOREGROUND_COLOR);  
+  graphics_context_set_stroke_width(ctx, 1);
+  graphics_draw_line(ctx, center, minute_hand_start);  
   
   // draw wide part of minute hand
+   graphics_context_set_stroke_color(ctx, FOREGROUND_COLOR);
   graphics_context_set_stroke_width(ctx, 6);  
-  graphics_draw_line(ctx, minute_hand_start, minute_hand_end);
- 
-  // draw minute line
+  graphics_draw_line(ctx, minute_hand_start, minute_hand_end);   
+  
+  // draw wide part of hour hand in background color for shadow
+  graphics_context_set_stroke_color(ctx, BACKGROUND_COLOR);  
+  graphics_context_set_stroke_width(ctx, 8);
+  graphics_draw_line(ctx, hour_hand_start, hour_hand_end);  
+  
+  // draw small hour line
+  graphics_context_set_stroke_color(ctx, FOREGROUND_COLOR); 
   graphics_context_set_stroke_width(ctx, 1);
-  graphics_draw_line(ctx, center, minute_hand_start);
+  graphics_draw_line(ctx, center, hour_hand_start);   
   
   // draw wide part of hour hand
+  graphics_context_set_stroke_color(ctx, FOREGROUND_COLOR);  
   graphics_context_set_stroke_width(ctx, 6);
   graphics_draw_line(ctx, hour_hand_start, hour_hand_end);
   
@@ -226,16 +242,11 @@ static void ticks_update_proc(Layer *layer, GContext *ctx) {
   graphics_context_set_stroke_color(ctx, BACKGROUND_COLOR);  
   graphics_context_set_stroke_width(ctx, 2);
   graphics_draw_line(ctx, filler_start, filler_end);    
- 
-  // draw line
-  graphics_context_set_stroke_color(ctx, FOREGROUND_COLOR); 
-  graphics_context_set_stroke_width(ctx, 1);
-  graphics_draw_line(ctx, center, hour_hand_start);  
   
   // circle overlay
   // draw circle in middle 
   graphics_context_set_fill_color(ctx, FOREGROUND_COLOR);  
-  graphics_fill_circle(ctx, center, 4);
+  graphics_fill_circle(ctx, center, 3);
   
   // dot in the middle
   graphics_context_set_fill_color(ctx, BACKGROUND_COLOR);
@@ -398,9 +409,9 @@ static void battery_handler(BatteryChargeState charge_state) {
 /////////////////////////////
 static void bluetooth_callback(bool connected) {
   layer_set_hidden(bitmap_layer_get_layer(s_bluetooth_bitmap_layer), connected);
-  if(!connected) {  
+  if(!connected) {
     vibes_double_pulse();
-  } 
+  }
 }
 
 // registers health update events
@@ -430,23 +441,26 @@ static void health_handler(HealthEventType event, void *context) {
 // unload window //
 ///////////////////
 static void main_window_unload(Window *window) {
-  gbitmap_destroy(s_weather_bitmap);
-  gbitmap_destroy(s_health_bitmap);
-  gbitmap_destroy(s_bluetooth_bitmap);
-  gbitmap_destroy(s_charging_bitmap);
-  bitmap_layer_destroy(s_weather_bitmap_layer);
-  bitmap_layer_destroy(s_health_bitmap_layer);
-  bitmap_layer_destroy(s_bluetooth_bitmap_layer);
-  bitmap_layer_destroy(s_charging_bitmap_layer);
   layer_destroy(s_dial_layer);
   layer_destroy(s_hands_layer);
   layer_destroy(s_temp_circle);
   layer_destroy(s_battery_circle);
   layer_destroy(s_health_circle);
+  
   text_layer_destroy(s_temp_layer);
   text_layer_destroy(s_health_layer);
   text_layer_destroy(s_day_text_layer);
   text_layer_destroy(s_date_text_layer);  
+  
+  gbitmap_destroy(s_weather_bitmap);
+  gbitmap_destroy(s_health_bitmap);
+  gbitmap_destroy(s_bluetooth_bitmap);
+  gbitmap_destroy(s_charging_bitmap);
+  
+  bitmap_layer_destroy(s_weather_bitmap_layer);
+  bitmap_layer_destroy(s_health_bitmap_layer);
+  bitmap_layer_destroy(s_bluetooth_bitmap_layer);
+  bitmap_layer_destroy(s_charging_bitmap_layer);
 }
 
 //////////////////////////////////////
@@ -454,13 +468,13 @@ static void main_window_unload(Window *window) {
 //////////////////////////////////////
 static void load_icons() {
   // populate icon variable
-    if(strcmp(icon_buf, "clear-day")==0) {
+    if(strcmp(icon_buf, "clear-day")==0 || strcmp(icon_buf, "01d")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_CLEAR_SKY_DAY_WHITE_ICON);  
-    } else if(strcmp(icon_buf, "clear-night")==0) {
+    } else if(strcmp(icon_buf, "clear-night")==0 || strcmp(icon_buf, "01n")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_CLEAR_SKY_NIGHT_WHITE_ICON);
-    }else if(strcmp(icon_buf, "rain")==0) {
+    }else if(strcmp(icon_buf, "rain")==0 || strcmp(icon_buf, "10d")==0 || strcmp(icon_buf, "10n")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_RAIN_WHITE_ICON);
-    } else if(strcmp(icon_buf, "snow")==0) {
+    } else if(strcmp(icon_buf, "snow")==0 || strcmp(icon_buf, "11d")==0 || strcmp(icon_buf, "11n")==0 || strcmp(icon_buf, "13d")==0 || strcmp(icon_buf, "13n")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_SNOW_WHITE_ICON);
     } else if(strcmp(icon_buf, "sleet")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_SLEET_WHITE_ICON);
@@ -470,11 +484,33 @@ static void load_icons() {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_FOG_WHITE_ICON);
     } else if(strcmp(icon_buf, "cloudy")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_CLOUDY_WHITE_ICON);
-    } else if(strcmp(icon_buf, "partly-cloudy-day")==0) {
+    } else if(strcmp(icon_buf, "partly-cloudy-day")==0 || strcmp(icon_buf, "02d")==0 || strcmp(icon_buf, "03d")==0 || strcmp(icon_buf, "04d")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_PARTLY_CLOUDY_DAY_WHITE_ICON);
-    } else if(strcmp(icon_buf, "partly-cloudy-night")==0) {
+    } else if(strcmp(icon_buf, "partly-cloudy-night")==0 || strcmp(icon_buf, "02n")==0 || strcmp(icon_buf, "03n")==0 || strcmp(icon_buf, "04n")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_PARTLY_CLOUDY_NIGHT_WHITE_ICON);
-    }
+    }  
+//   // populate icon variable
+//     if(strcmp(icon_buf, "clear-day")==0) {
+//       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_CLEAR_SKY_DAY_WHITE_ICON);  
+//     } else if(strcmp(icon_buf, "clear-night")==0) {
+//       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_CLEAR_SKY_NIGHT_WHITE_ICON);
+//     }else if(strcmp(icon_buf, "rain")==0) {
+//       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_RAIN_WHITE_ICON);
+//     } else if(strcmp(icon_buf, "snow")==0) {
+//       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_SNOW_WHITE_ICON);
+//     } else if(strcmp(icon_buf, "sleet")==0) {
+//       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_SLEET_WHITE_ICON);
+//     } else if(strcmp(icon_buf, "wind")==0) {
+//       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_WIND_WHITE_ICON);
+//     } else if(strcmp(icon_buf, "fog")==0) {
+//       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_FOG_WHITE_ICON);
+//     } else if(strcmp(icon_buf, "cloudy")==0) {
+//       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_CLOUDY_WHITE_ICON);
+//     } else if(strcmp(icon_buf, "partly-cloudy-day")==0) {
+//       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_PARTLY_CLOUDY_DAY_WHITE_ICON);
+//     } else if(strcmp(icon_buf, "partly-cloudy-night")==0) {
+//       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_PARTLY_CLOUDY_NIGHT_WHITE_ICON);
+//     }
   // populate weather icon
   if(s_weather_bitmap_layer) {
     bitmap_layer_destroy(s_weather_bitmap_layer);

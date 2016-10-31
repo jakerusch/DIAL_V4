@@ -1,6 +1,8 @@
 {
     "author": "jacob.rusch@gmail.com",
-    "dependencies": {},
+    "dependencies": {
+        "pebble-clay": "^1.0.3"
+    },
     "keywords": [],
     "name": "dial",
     "pebble": {
@@ -17,6 +19,13 @@
         "projectType": "native",
         "resources": {
             "media": [
+                {
+                    "file": "images/menu_icon.png",
+                    "menuIcon": true,
+                    "name": "menu_icon",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
                 {
                     "file": "images/LIGHTENING_WHITE_ICON.png",
                     "name": "LIGHTENING_WHITE_ICON",
@@ -121,7 +130,6 @@
                 },
                 {
                     "file": "images/SCREENSHOT.png",
-                    "menuIcon": true,
                     "name": "SCREENSHOT",
                     "targetPlatforms": null,
                     "type": "bitmap"
@@ -204,5 +212,5 @@
             "watchface": true
         }
     },
-    "version": "2.0.0"
+    "version": "4.0.0"
 }

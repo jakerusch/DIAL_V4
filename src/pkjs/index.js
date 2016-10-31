@@ -5,33 +5,33 @@ var xhrRequest = function (url, type, callback) {
   xhr.onload = function () {
     callback(this.responseText);
   };
-  xhr.open(type, url);
+  xhr.open(type, url, false);
   xhr.send();
 };
 
 function locationSuccess(pos) {
   // Construct URL
-  var weatherUrl = 'https://api.darksky.net/forecast/' + myAPIKey + '/' + pos.coords.latitude + ',' + pos.coords.longitude;
-  
-  // get forecast through dark sky
+  var weatherUrl = "http://api.openweathermap.org/data/2.5/weather?lat=" +
+      pos.coords.latitude + "&lon=" + pos.coords.longitude + '&appid=' + myAPIKey + '&units=imperial';  
+
+  // Send request to OpenWeatherMap.org
   xhrRequest(weatherUrl, 'GET', 
     function(responseText) {
       var json = JSON.parse(responseText);
+            
+      // Delivered in imperial so no need for adjustment
+      var temp = Math.round(json.main.temp);
+      console.log("Temperature is " + temp);     
       
-      // round temperature
-      var curTemp = Math.round(json.currently.temperature);
-      console.log("Temperature is " + curTemp);
-      
-      // icon for weather condition
-      var icon = json.currently.icon;
-      console.log("Current icon is " + icon);
+      var icon = json.weather[0].icon;
+      console.log("Icon is " + icon);
       
       // assemble dictionary using keys
       var dictionary = {
-        "KEY_TEMP": curTemp,
+        "KEY_TEMP": temp,
         "KEY_ICON": icon,
       };
-      
+
       // Send to Pebble
       Pebble.sendAppMessage(dictionary,
         function(e) {
