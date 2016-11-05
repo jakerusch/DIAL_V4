@@ -280,7 +280,7 @@ static void main_window_load(Window *window) {
   layer_add_child(s_dial_layer, s_temp_circle);
   
   // create temp text
-  s_temp_layer = text_layer_create(GRect(60, 20, 24, 16));
+  s_temp_layer = text_layer_create(GRect(60, 19, 24, 16));
   text_layer_set_text_color(s_temp_layer, FOREGROUND_COLOR);
   text_layer_set_background_color(s_temp_layer, GColorClear);
   text_layer_set_text_alignment(s_temp_layer, GTextAlignmentCenter);
@@ -307,7 +307,7 @@ static void main_window_load(Window *window) {
   layer_add_child(s_dial_layer, bitmap_layer_get_layer(s_bluetooth_bitmap_layer));       
   
   // create health layer text
-  s_health_layer = text_layer_create(GRect(54, 116, 36, 16));
+  s_health_layer = text_layer_create(GRect(54, 115, 36, 16));
   text_layer_set_text_color(s_health_layer, FOREGROUND_COLOR);
   text_layer_set_background_color(s_health_layer, GColorClear);
   text_layer_set_text_alignment(s_health_layer, GTextAlignmentCenter);
@@ -358,15 +358,33 @@ static void update_time() {
   
   // write date to buffer
   static char date_buffer[32];
-  strftime(date_buffer, sizeof(date_buffer), "%d", tick_time);
+  strftime(date_buffer, sizeof(date_buffer), "%e", tick_time);
   
   // write day to buffer
   static char day_buffer[32];
-  strftime(day_buffer, sizeof(day_buffer), "%a", tick_time);
+  char *weekday = day_buffer;
+  strftime(day_buffer, sizeof(day_buffer), "%u", tick_time);
+  
+  // make date all caps
+  if(strcmp(day_buffer, "0")==0) {
+    weekday = "SUN";
+  } else if(strcmp(day_buffer, "1")==0) {
+    weekday = "MON";
+  } else if(strcmp(day_buffer, "2")==0) {
+    weekday = "TUE";
+  } else if(strcmp(day_buffer, "3")==0) {
+    weekday = "WED";
+  } else if(strcmp(day_buffer, "4")==0) {
+    weekday = "THU";
+  } else if(strcmp(day_buffer, "5")==0) {
+    weekday = "FRI";
+  } else {
+    weekday = "SAT";
+  }
   
   // display this time on the text layer
-  text_layer_set_text(s_date_text_layer, date_buffer);
-  text_layer_set_text(s_day_text_layer, day_buffer);  
+  text_layer_set_text(s_date_text_layer, date_buffer+(('0' == date_buffer[0]?1:0))); // remove padding
+  text_layer_set_text(s_day_text_layer, weekday); 
 }
 
 //////////////////
@@ -468,13 +486,23 @@ static void main_window_unload(Window *window) {
 //////////////////////////////////////
 static void load_icons() {
   // populate icon variable
-    if(strcmp(icon_buf, "clear-day")==0 || strcmp(icon_buf, "01d")==0) {
+    if(strcmp(icon_buf, "clear-day")==0 || 
+       strcmp(icon_buf, "01d")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_CLEAR_SKY_DAY_WHITE_ICON);  
-    } else if(strcmp(icon_buf, "clear-night")==0 || strcmp(icon_buf, "01n")==0) {
+    } else if(strcmp(icon_buf, "clear-night")==0 || 
+              strcmp(icon_buf, "01n")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_CLEAR_SKY_NIGHT_WHITE_ICON);
-    }else if(strcmp(icon_buf, "rain")==0 || strcmp(icon_buf, "10d")==0 || strcmp(icon_buf, "10n")==0) {
+    }else if(strcmp(icon_buf, "rain")==0 || 
+             strcmp(icon_buf, "10d")==0 || 
+             strcmp(icon_buf, "10n")==0 || 
+             strcmp(icon_buf, "50d")==0 || 
+             strcmp(icon_buf, "50n")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_RAIN_WHITE_ICON);
-    } else if(strcmp(icon_buf, "snow")==0 || strcmp(icon_buf, "11d")==0 || strcmp(icon_buf, "11n")==0 || strcmp(icon_buf, "13d")==0 || strcmp(icon_buf, "13n")==0) {
+    } else if(strcmp(icon_buf, "snow")==0 || 
+              strcmp(icon_buf, "11d")==0 || 
+              strcmp(icon_buf, "11n")==0 || 
+              strcmp(icon_buf, "13d")==0 || 
+              strcmp(icon_buf, "13n")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_SNOW_WHITE_ICON);
     } else if(strcmp(icon_buf, "sleet")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_SLEET_WHITE_ICON);
@@ -484,9 +512,15 @@ static void load_icons() {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_FOG_WHITE_ICON);
     } else if(strcmp(icon_buf, "cloudy")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_CLOUDY_WHITE_ICON);
-    } else if(strcmp(icon_buf, "partly-cloudy-day")==0 || strcmp(icon_buf, "02d")==0 || strcmp(icon_buf, "03d")==0 || strcmp(icon_buf, "04d")==0) {
+    } else if(strcmp(icon_buf, "partly-cloudy-day")==0 || 
+              strcmp(icon_buf, "02d")==0 || 
+              strcmp(icon_buf, "03d")==0 || 
+              strcmp(icon_buf, "04d")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_PARTLY_CLOUDY_DAY_WHITE_ICON);
-    } else if(strcmp(icon_buf, "partly-cloudy-night")==0 || strcmp(icon_buf, "02n")==0 || strcmp(icon_buf, "03n")==0 || strcmp(icon_buf, "04n")==0) {
+    } else if(strcmp(icon_buf, "partly-cloudy-night")==0 || 
+              strcmp(icon_buf, "02n")==0 || 
+              strcmp(icon_buf, "03n")==0 || 
+              strcmp(icon_buf, "04n")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_PARTLY_CLOUDY_NIGHT_WHITE_ICON);
     }  
 //   // populate icon variable

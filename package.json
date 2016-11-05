@@ -1,8 +1,6 @@
 {
     "author": "jacob.rusch@gmail.com",
-    "dependencies": {
-        "pebble-clay": "^1.0.3"
-    },
+    "dependencies": {},
     "keywords": [],
     "name": "dial",
     "pebble": {
@@ -205,6 +203,8 @@
         },
         "sdkVersion": "3",
         "targetPlatforms": [
+            "aplite",
+            "basalt",
             "diorite"
         ],
         "uuid": "52972340-5a5e-4452-883a-80e0b3446e8b",
