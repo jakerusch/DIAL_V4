@@ -25,80 +25,8 @@
                     "type": "bitmap"
                 },
                 {
-                    "file": "images/LIGHTENING_WHITE_ICON.png",
-                    "name": "LIGHTENING_WHITE_ICON",
-                    "targetPlatforms": null,
-                    "type": "bitmap"
-                },
-                {
                     "file": "images/WIND_WHITE_ICON.png",
                     "name": "WIND_WHITE_ICON",
-                    "targetPlatforms": null,
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/SNOW_WHITE_ICON.png",
-                    "name": "SNOW_WHITE_ICON",
-                    "targetPlatforms": null,
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/SLEET_WHITE_ICON.png",
-                    "name": "SLEET_WHITE_ICON",
-                    "targetPlatforms": null,
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/RAIN_WHITE_ICON.png",
-                    "name": "RAIN_WHITE_ICON",
-                    "targetPlatforms": null,
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/PARTLY_CLOUDY_NIGHT_WHITE_ICON.png",
-                    "name": "PARTLY_CLOUDY_NIGHT_WHITE_ICON",
-                    "targetPlatforms": null,
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/PARTLY_CLOUDY_DAY_WHITE_ICON.png",
-                    "name": "PARTLY_CLOUDY_DAY_WHITE_ICON",
-                    "targetPlatforms": null,
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/FOG_WHITE_ICON.png",
-                    "name": "FOG_WHITE_ICON",
-                    "targetPlatforms": null,
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/CLOUDY_WHITE_ICON.png",
-                    "name": "CLOUDY_WHITE_ICON",
-                    "targetPlatforms": null,
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/CLEAR_SKY_NIGHT_WHITE_ICON.png",
-                    "name": "CLEAR_SKY_NIGHT_WHITE_ICON",
-                    "targetPlatforms": null,
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/CLEAR_SKY_DAY_WHITE_ICON.png",
-                    "name": "CLEAR_SKY_DAY_WHITE_ICON",
-                    "targetPlatforms": null,
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/SHOE_WHITE_ICON.png",
-                    "name": "SHOE_WHITE_ICON",
-                    "targetPlatforms": null,
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/BLUETOOTH_DISCONNECTED_WHITE_ICON.png",
-                    "name": "BLUETOOTH_DISCONNECTED_WHITE_ICON",
                     "targetPlatforms": null,
                     "type": "bitmap"
                 },
@@ -109,14 +37,32 @@
                     "type": "bitmap"
                 },
                 {
+                    "file": "images/SNOW_WHITE_ICON.png",
+                    "name": "SNOW_WHITE_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
                     "file": "images/SNOW_BLACK_ICON.png",
                     "name": "SNOW_BLACK_ICON",
                     "targetPlatforms": null,
                     "type": "bitmap"
                 },
                 {
+                    "file": "images/SLEET_WHITE_ICON.png",
+                    "name": "SLEET_WHITE_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
                     "file": "images/SLEET_BLACK_ICON.png",
                     "name": "SLEET_BLACK_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/SHOE_WHITE_ICON.png",
+                    "name": "SHOE_WHITE_ICON",
                     "targetPlatforms": null,
                     "type": "bitmap"
                 },
@@ -133,8 +79,20 @@
                     "type": "bitmap"
                 },
                 {
+                    "file": "images/RAIN_WHITE_ICON.png",
+                    "name": "RAIN_WHITE_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
                     "file": "images/RAIN_BLACK_ICON.png",
                     "name": "RAIN_BLACK_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/PARTLY_CLOUDY_NIGHT_WHITE_ICON.png",
+                    "name": "PARTLY_CLOUDY_NIGHT_WHITE_ICON",
                     "targetPlatforms": null,
                     "type": "bitmap"
                 },
@@ -145,8 +103,20 @@
                     "type": "bitmap"
                 },
                 {
+                    "file": "images/PARTLY_CLOUDY_DAY_WHITE_ICON.png",
+                    "name": "PARTLY_CLOUDY_DAY_WHITE_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
                     "file": "images/PARTLY_CLOUDY_DAY_BLACK_ICON.png",
                     "name": "PARTLY_CLOUDY_DAY_BLACK_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/LIGHTENING_WHITE_ICON.png",
+                    "name": "LIGHTENING_WHITE_ICON",
                     "targetPlatforms": null,
                     "type": "bitmap"
                 },
@@ -157,8 +127,20 @@
                     "type": "bitmap"
                 },
                 {
+                    "file": "images/FOG_WHITE_ICON.png",
+                    "name": "FOG_WHITE_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
                     "file": "images/FOG_BLACK_ICON.png",
                     "name": "FOG_BLACK_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/CLOUDY_WHITE_ICON.png",
+                    "name": "CLOUDY_WHITE_ICON",
                     "targetPlatforms": null,
                     "type": "bitmap"
                 },
@@ -169,14 +151,32 @@
                     "type": "bitmap"
                 },
                 {
+                    "file": "images/CLEAR_SKY_NIGHT_WHITE_ICON.png",
+                    "name": "CLEAR_SKY_NIGHT_WHITE_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
                     "file": "images/CLEAR_SKY_NIGHT_BLACK_ICON.png",
                     "name": "CLEAR_SKY_NIGHT_BLACK_ICON",
                     "targetPlatforms": null,
                     "type": "bitmap"
                 },
                 {
+                    "file": "images/CLEAR_SKY_DAY_WHITE_ICON.png",
+                    "name": "CLEAR_SKY_DAY_WHITE_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
                     "file": "images/CLEAR_SKY_DAY_BLACK_ICON.png",
                     "name": "CLEAR_SKY_DAY_BLACK_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/BLUETOOTH_DISCONNECTED_WHITE_ICON.png",
+                    "name": "BLUETOOTH_DISCONNECTED_WHITE_ICON",
                     "targetPlatforms": null,
                     "type": "bitmap"
                 },

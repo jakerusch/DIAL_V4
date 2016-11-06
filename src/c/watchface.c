@@ -494,7 +494,9 @@ static void load_icons() {
     } else if(strcmp(icon_buf, "clear-night")==0 || 
               strcmp(icon_buf, "01n")==0) {
       s_weather_bitmap = gbitmap_create_with_resource(RESOURCE_ID_CLEAR_SKY_NIGHT_WHITE_ICON);
-    }else if(strcmp(icon_buf, "rain")==0 || 
+    }else if(strcmp(icon_buf, "rain")==0 ||
+             strcmp(icon_buf, "09d")==0 || 
+             strcmp(icon_buf, "09n")==0 || 
              strcmp(icon_buf, "10d")==0 || 
              strcmp(icon_buf, "10n")==0 || 
              strcmp(icon_buf, "50d")==0 || 
