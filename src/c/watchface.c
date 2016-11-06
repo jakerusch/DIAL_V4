@@ -363,7 +363,7 @@ static void update_time() {
   // write day to buffer
   static char day_buffer[32];
   char *weekday = day_buffer;
-  strftime(day_buffer, sizeof(day_buffer), "%u", tick_time);
+  strftime(day_buffer, sizeof(day_buffer), "%w", tick_time);
   
   // make date all caps
   if(strcmp(day_buffer, "0")==0) {
@@ -378,8 +378,10 @@ static void update_time() {
     weekday = "THU";
   } else if(strcmp(day_buffer, "5")==0) {
     weekday = "FRI";
-  } else {
+  } else if(strcmp(day_buffer, "6")==0) {
     weekday = "SAT";
+  } else {
+    weekday = "";
   }
   
   // display this time on the text layer
